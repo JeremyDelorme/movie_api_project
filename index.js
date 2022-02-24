@@ -1,11 +1,36 @@
 const express = require("express");
 const app = express();
 
-const http = require('http');
+let topBooks = [
+  {
+    title: 'Harry Potter and the Sorcerer\'s Stone',
+    author: 'J.K. Rowling'
+  },
+  {
+    title: 'Lord of the Rings',
+    author: 'J.R.R. Tolkien'
+  },
+  {
+    title: 'Twilight',
+    author: 'Stephanie Meyer'
+  }
+];
 
-http.createServer((request, response) => {
-  response.writeHead(200, {'Content-Type': 'text/plain'});
-  response.end('Welcome to my book club!\n');
-}).listen(8080);
+// GET requests
+app.get('/', (req, res) => {
+  res.send('Welcome to my book club!');
+});
 
-console.log('My first Node test server is running on Port 8080.');
+app.get('/documentation', (req, res) => {
+  res.sendFile('public/documentation.html', { root: __dirname });
+});
+
+app.get('/books', (req, res) => {
+  res.json(topBooks);
+});
+
+
+// listen for requests
+app.listen(8080, () => {
+  console.log('Your app is listening on port 8080.');
+});
