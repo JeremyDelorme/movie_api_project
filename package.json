@@ -19,10 +19,10 @@
   "homepage": "https://github.com/JeremyDelorme/movie_api_project#readme",
   "dependencies": {
     "body-parser": "^1.19.2",
-    "express": "^4.17.3",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "eslint": "^8.9.0"
+    "eslint": "^8.9.0",
+    "express": "^4.17.3"
   }
 }
