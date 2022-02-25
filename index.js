@@ -5,6 +5,9 @@ const app = express();
 //IMPORT MORGAN MIDDLEWARE LIBRARY
 const morgan = require("morgan");
 
+//LOG BASIC REQUEST DATA IN TERMINAL USING MORGAN MIDDLEWARE LIBRARY
+app.use(morgan("common"));
+
 //CREATE AN ARRAY OF OBJECTS HOLDING TOP MOVIES
 let topMovies = [
   {
@@ -49,9 +52,6 @@ let topMovies = [
   }
 ];
 
-//LOG BASIC REQUEST DATA IN TERMINAL USING MORGAN MIDDLEWARE LIBRARY
-app.use(morgan("common"));
-
 //GET topMovies JSON FOR '/movies' REQUEST URL
 app.get("/movies", (req, res) => {
   res.json(topMovies);
@@ -73,5 +73,5 @@ app.use((err, req, res, next) => {
 
 //LISTEN TO PORT 8080
 app.listen(8080, () => {
-  console.log("Your App is still listening on port 8080.");
+  console.log("Your App is listening on port 8080.");
 });
