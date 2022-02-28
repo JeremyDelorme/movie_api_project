@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>myFlix!</title>
+    <title>Movie App</title>
   </head>
 
   <body>
+
     <header>
-      <h1>myFlix!</h1>
+      <h1>Movie App!!</h1>
     </header>
 
     <main>
@@ -19,6 +20,176 @@
         Users will be able to sign up, update their personal information, and
         create a list of their favorite movies.
       </p>
+
+      <table>
+
+        <tr>
+          <th>BUSINESS LOGIC</th>
+          <th>URL</th>
+          <th>REQUEST PARAMETER</th>
+          <th>HTTP METHOD</th>
+          <th>REQUEST BODY DATA FORMAT</th>
+          <th>RESPONSE BODY DATA FORMAT</th>
+        </tr>
+
+        <tr>
+          <td>1. Return a list of all movies to the user</td>
+          <td>"/movies"</td>
+          <td>none</td>
+          <td>GET</td>
+          <td>None</td>
+          <td>
+            A JSON object holding data about all the movies. <br>
+            Example: {
+              Title: "Ice Age",
+              Year: "2002",
+              Genre: {
+                Name: "Comedy",
+                Description:
+                  "Comedy films are films that make the audience laugh without making them think about existential questions"
+              },
+              Director: {
+                Name: "Chris Wedge",
+                Birth: "1957",
+                Death: "-"
+              }
+          </td>
+        </tr>
+
+        <tr>
+          <td>2. Return data about a single movie by title to the user</td>
+          <td>"/movies/:title"</td>
+          <td>:title</td>
+          <td>GET</td>
+          <td>None</td>
+          <td>
+            A JSON object holding data about a single movie. <br>
+            Example: Title: "Ice Age"
+          </td>
+        </tr>
+
+        <tr>
+          <td>3. Return data about a genre by name/title</td>
+          <td>"/movies/genre/:name"</td>
+          <td>:name</td>
+          <td>GET</td>
+          <td>None</td>
+          <td>
+            A JSON object holding data about a genre by name. <br>
+            Example: Genre: {
+              Name: "Comedy",
+              Description:
+                "Comedy films are films that make the audience laugh without making them think about existential questions"
+            },
+          </td>
+        </tr>
+
+        <tr>
+          <td>4. Return data about a director by name</td>
+          <td>"/movies/:directors/:name"</td>
+          <td>:name</td>
+          <td>GET</td>
+          <td>None</td>
+          <td>
+            A JSON object holding data about a director by name. <br>
+            Example: Director: {
+              Name: "Chris Wedge",
+              Birth: "1957",
+              Death: "-"
+            }
+          </td>
+        </tr>
+
+        <tr>
+          <td>5. Allow new user to register</td>
+          <td>"/users"</td>
+          <td>none</td>
+          <td>POST</td>
+          <td>
+            A JSON object holding data about the new user infos to add. <br>
+            Example: {
+              "name": "Jerome",
+              "favoriteMovies": [],
+              "email": "mashedpotato@gmail.com",
+              "password": "ialsolovefries",
+              "birthday": "01/01/2001",
+            }
+          </td>
+          <td>
+            A JSON object holding data about the new infos added. <br>
+            Example: {
+              "name": "Jerome",
+              "favoriteMovies": [],
+              "email": "mashedpotato@gmail.com",
+              "password": "ialsolovefries",
+              "birthday": "01/01/2001",
+              "id": "7a8e11f7-ce31-4928-8272-0187fb9f8179"
+            }
+          </td>
+        </tr>
+
+        <tr>
+          <td>6. Allow users to update their user name</td>
+          <td>"/users/:username"</td>
+          <td>:username</td>
+          <td>PUT</td>
+          <td>
+            A JSON object holding data about the new username to add. <br>
+            Example: {
+              "name": "UNmashedpotatoes"
+            }
+          </td>
+          <td>
+            A JSON object holding data about the new user to add with the new name. <br>
+            Example: {
+              "id": 1,
+              "username": "mashedpotato",
+              "email": "mashedpotato@gmail.com",
+              "password": "ialsolovefries",
+              "birthday": "01/01/2001",
+              "favoriteMovies": [
+                "Ice Age",
+                "Finding Nemo",
+                "Lion King"
+              ],
+              "name": "UNmashedpotatoes"
+          </td>
+        </tr>
+
+        <tr>
+          <td>7. Allow users to add a movie to their list of favorites (showing only a text that a movie has been added)</td>
+          <td>"/users/:username/movies/:movieID"</td>
+          <td>:username, :movieID</td>
+          <td>POST</td>
+          <td>
+            A JSON object holding data about the movie added to the list of favorite movies.
+          </td>
+          <td>
+            A text showing that the movie has been added to their list of favorite movies.
+          </td>
+        </tr>
+
+        <tr>
+          <td>8. Allow users to remove a movie from their list of favorites (showing only a text that a movie has been removed)</td>
+          <td>"/users/:username/movies/:movieID"</td>
+          <td>:username, :movieID</td>
+          <td>DELETE</td>
+          <td>None</td>
+          <td>
+            A text showing that the movie has been removed to their list of favorite movies.
+          </td>
+        </tr>
+
+        <tr>
+          <td>9. Allow existing users to deregister (showing only a text that a user email has been removed)</td>
+          <td>"/users/:username"</td>
+          <td>:username</td>
+          <td>DELETE</td>
+          <td>None</td>
+          <td>
+            A text showing that the user email has been removed.
+          </td>
+        </tr>
     </main>
 
     <footer></footer>
