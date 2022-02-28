@@ -158,12 +158,10 @@
 
         <tr>
           <td>7. Allow users to add a movie to their list of favorites (showing only a text that a movie has been added)</td>
-          <td>"/users/:id/:movieTitle"</td>
-          <td>:username, :movieTitle</td>
+          <td>"/users/:id/movies/:movieTitle"</td>
+          <td>:id, :movieTitle</td>
           <td>PATCH</td>
-          <td>
-            A JSON object holding data about the movie added to the list of favorite movies.
-          </td>
+          <td>None</td>
           <td>
             A text showing that the movie has been added to their list of favorite movies.
           </td>
@@ -171,8 +169,8 @@
 
         <tr>
           <td>8. Allow users to remove a movie from their list of favorites (showing only a text that a movie has been removed)</td>
-          <td>"/users/:id/:movieTitle"</td>
-          <td>:username, :movieTitle</td>
+          <td>"/users/:id/movies/:movieTitle"</td>
+          <td>:id, :movieTitle</td>
           <td>DELETE</td>
           <td>None</td>
           <td>

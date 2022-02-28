@@ -143,7 +143,7 @@ app.put("/users/:id", (req, res) => {
 });
 
 //7. UPDATE A MOVIE TO LIST OF FAVORITES
-app.patch("/users/:id/:movieTitle", (req, res) => {
+app.patch("/users/:id/movies/:movieTitle", (req, res) => {
   const { id, movieTitle } = req.params;
 
   let user = users.find(user => user.id == id);
@@ -157,7 +157,7 @@ app.patch("/users/:id/:movieTitle", (req, res) => {
 });
 
 //8. DELETE MOVIE FROM FAVORITE MOVIES LIST
-app.delete("/users/:id/:movieTitle", (req, res) => {
+app.delete("/users/:id/movies/:movieTitle", (req, res) => {
   const { id, movieTitle } = req.params;
 
   let user = users.find(user => user.id == id);
