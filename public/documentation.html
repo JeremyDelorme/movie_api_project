@@ -70,7 +70,7 @@
 
         <tr>
           <td>3. Return data about a genre by name/title</td>
-          <td>"/movies/genre/:name"</td>
+          <td>"/movies/genre/:genreName"</td>
           <td>:name</td>
           <td>GET</td>
           <td>None</td>
@@ -86,7 +86,7 @@
 
         <tr>
           <td>4. Return data about a director by name</td>
-          <td>"/movies/:directors/:name"</td>
+          <td>"/movies/:directors/:directorName"</td>
           <td>:name</td>
           <td>GET</td>
           <td>None</td>
@@ -130,7 +130,7 @@
 
         <tr>
           <td>6. Allow users to update their user name</td>
-          <td>"/users/:username"</td>
+          <td>"/users/:id"</td>
           <td>:username</td>
           <td>PUT</td>
           <td>
@@ -158,9 +158,9 @@
 
         <tr>
           <td>7. Allow users to add a movie to their list of favorites (showing only a text that a movie has been added)</td>
-          <td>"/users/:username/movies/:movieID"</td>
-          <td>:username, :movieID</td>
-          <td>POST</td>
+          <td>"/users/:id/:movieTitle"</td>
+          <td>:username, :movieTitle</td>
+          <td>PATCH</td>
           <td>
             A JSON object holding data about the movie added to the list of favorite movies.
           </td>
@@ -171,8 +171,8 @@
 
         <tr>
           <td>8. Allow users to remove a movie from their list of favorites (showing only a text that a movie has been removed)</td>
-          <td>"/users/:username/movies/:movieID"</td>
-          <td>:username, :movieID</td>
+          <td>"/users/:id/:movieTitle"</td>
+          <td>:username, :movieTitle</td>
           <td>DELETE</td>
           <td>None</td>
           <td>
@@ -182,7 +182,7 @@
 
         <tr>
           <td>9. Allow existing users to deregister (showing only a text that a user email has been removed)</td>
-          <td>"/users/:username"</td>
+          <td>"/users/:id"</td>
           <td>:username</td>
           <td>DELETE</td>
           <td>None</td>

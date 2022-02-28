@@ -142,8 +142,8 @@ app.put("/users/:id", (req, res) => {
   }
 });
 
-//7. CREATE A MOVIE TO LIST OF FAVORITES
-app.post("/users/:id/:movieTitle", (req, res) => {
+//7. UPDATE A MOVIE TO LIST OF FAVORITES
+app.patch("/users/:id/:movieTitle", (req, res) => {
   const { id, movieTitle } = req.params;
 
   let user = users.find(user => user.id == id);
