@@ -39,20 +39,22 @@
           <td>GET</td>
           <td>None</td>
           <td>
-            A JSON object holding data about all the movies. <br>
-            Example: {
-              Title: "Ice Age",
-              Year: "2002",
+            A JSON object holding data about all the movies.
+<br />
+            Example:
+              Title: "A Clockwork Orange"
+              Description: "In the future, a sadistic gang...etc."
               Genre: {
-                Name: "Comedy",
-                Description:
-                  "Comedy films are films that make the audience laugh without making them think about existential questions"
+                Name: "Crime"
+                Description: "Crime is a genre known for...etc."
               },
               Director: {
-                Name: "Chris Wedge",
-                Birth: "1957",
-                Death: "-"
+                Name: "Stanley Kubrick"
+                Birth: "1928"
+                Death: "1999"
               }
+<br />
+<br />
           </td>
         </tr>
 
@@ -63,8 +65,21 @@
           <td>GET</td>
           <td>None</td>
           <td>
-            A JSON object holding data about a single movie. <br>
-            Example: Title: "Ice Age"
+            A JSON object holding data about a single movie.
+<br />
+            Example:
+              Title: "A Clockwork Orange"
+              Description: "In the future, a sadistic gang...etc."
+              Genre: {
+                Name: "Crime"
+                Description: "Crime is a genre known for...etc."
+              },
+              Director: {
+                Name: "Stanley Kubrick"
+                Birth: "1928"
+                Death: "1999"
+              } <br />
+<br />
           </td>
         </tr>
 
@@ -76,11 +91,12 @@
           <td>None</td>
           <td>
             A JSON object holding data about a genre by name. <br>
-            Example: Genre: {
-              Name: "Comedy",
-              Description:
-                "Comedy films are films that make the audience laugh without making them think about existential questions"
-            },
+            Example:
+              Genre: {
+                Name: "Crime"
+                Description: "Crime is a genre known for...etc."
+              } <br />
+<br />
           </td>
         </tr>
 
@@ -92,11 +108,12 @@
           <td>None</td>
           <td>
             A JSON object holding data about a director by name. <br>
-            Example: Director: {
-              Name: "Chris Wedge",
-              Birth: "1957",
-              Death: "-"
-            }
+            Example:
+              Director: {
+                Name: "Stanley Kubrick"
+                Birth: "1928"
+                Death: "1999"
+              }
           </td>
         </tr>
 
@@ -106,53 +123,63 @@
           <td>none</td>
           <td>POST</td>
           <td>
+<br />
             A JSON object holding data about the new user infos to add. <br>
-            Example: {
-              "name": "Jerome",
-              "favoriteMovies": [],
-              "email": "mashedpotato@gmail.com",
-              "password": "ialsolovefries",
-              "birthday": "01/01/2001",
-            }
+            Example:
+<br />
+              Name: "Raspberry"
+              Email: "raspberry@gmail.com"
+              Password: "iamnotastrawberry"
+              Birthday: "1994-07-23"
+              FavoriteMovies: {
+                "A Clockwork Orange"
+                "Dancer in the Dark"
+                "Wild at Heart"
+              }
+<br />
+<br />
           </td>
           <td>
             A JSON object holding data about the new infos added. <br>
             Example: {
-              "name": "Jerome",
-              "favoriteMovies": [],
-              "email": "mashedpotato@gmail.com",
-              "password": "ialsolovefries",
-              "birthday": "01/01/2001",
-              "id": "7a8e11f7-ce31-4928-8272-0187fb9f8179"
-            }
+              _id: "62228b13dec0e2bdfd000ff3"
+              Name: "Raspberry"
+              Email: "raspberry@gmail.com"
+              Password: "iamnotastrawberry"
+              Birthday: "1994-07-23"
+              FavoriteMovies: {
+                "A Clockwork Orange"
+                "Dancer in the Dark"
+                "Wild at Heart"
+              }
           </td>
         </tr>
 
         <tr>
-          <td>6. Allow users to update their user name</td>
+          <td>6. Allow users to update their infos</td>
           <td>"/users/:id"</td>
           <td>:username</td>
           <td>PUT</td>
           <td>
             A JSON object holding data about the new username to add. <br>
             Example: {
-              "name": "UNmashedpotatoes"
+              Name: "Potato"
+              Email: "potato@gmail.com"
+              Password: "iamnotabeetroot"
+              Birthday: "2001-06-21"
+              FavoriteMovies: "Melancholia"
             }
           </td>
           <td>
-            A JSON object holding data about the new user to add with the new name. <br>
+            A JSON object holding updated data about the user. <br>
             Example: {
-              "id": 1,
-              "username": "mashedpotato",
-              "email": "mashedpotato@gmail.com",
-              "password": "ialsolovefries",
-              "birthday": "01/01/2001",
-              "favoriteMovies": [
-                "Ice Age",
-                "Finding Nemo",
-                "Lion King"
-              ],
-              "name": "UNmashedpotatoes"
+              _id: "62228b13dec0e2bdfd000ff4",
+              Name: "Potato"
+              Email: "potato@gmail.com"
+              Password: "iamnotabeetroot"
+              Birthday: "2001-06-21"
+              FavoriteMovies: "Melancholia"
+            }
           </td>
         </tr>
 
@@ -163,7 +190,9 @@
           <td>PATCH</td>
           <td>None</td>
           <td>
-            A text showing that the movie has been added to their list of favorite movies.
+            A message confirming the movie has been added to the list of favorite movies.
+<br />
+            Example: "Fantastic Planet has been added to the list of favorite movies"
           </td>
         </tr>
 
@@ -174,7 +203,9 @@
           <td>DELETE</td>
           <td>None</td>
           <td>
-            A text showing that the movie has been removed to their list of favorite movies.
+            A message confirming the movie has been removed from the list of favorite movies.
+<br />
+            Example: "Claire's Knee has been deleted from the list of favorite movies"
           </td>
         </tr>
 
@@ -185,7 +216,9 @@
           <td>DELETE</td>
           <td>None</td>
           <td>
-            A text showing that the user email has been removed.
+            A message confirming the user has been removed from the list of users.
+<br />
+            Example: "Raspberry has been removed from the list of users"
           </td>
         </tr>
     </main>

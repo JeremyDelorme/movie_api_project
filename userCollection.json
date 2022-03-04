@@ -1,0 +1,2 @@
+{"_id":{"$oid":"62228b13dec0e2bdfd000ff3"},"Name":"Raspberry","Email":"raspberry@gmail.com","Password":"iamnotastrawberry","Birthday":{"$date":"1994-07-23T00:00:00Z"},"FavoriteMovies":["622218f6845b318bf72ce24b","6222323a92eeb4ddf39a2284","622232cc92eeb4ddf39a2285",{"$oid":"6222349b8d00cadc928df9bf"}]}
+{"_id":{"$oid":"62228b28dec0e2bdfd000ff4"},"Name":"Orange","Email":"orange@gmail.com","Password":"iamnotalemon","Birthday":{"$date":"1993-01-20T00:00:00Z"},"FavoriteMovies":["622232dd92eeb4ddf39a2286","622232eb92eeb4ddf39a2287","622232f592eeb4ddf39a2288"]}
