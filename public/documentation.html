@@ -3,13 +3,13 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Movie App</title>
+    <title>My Movie Api Documentation</title>
   </head>
 
   <body>
 
     <header>
-      <h1>Movie App!!</h1>
+      <h1>My Movie API</h1>
     </header>
 
     <main>
@@ -24,24 +24,21 @@
       <table>
 
         <tr>
-          <th>BUSINESS LOGIC</th>
+          <th>CLIENT REQUEST</th>
           <th>URL</th>
-          <th>REQUEST PARAMETER</th>
           <th>HTTP METHOD</th>
           <th>REQUEST BODY DATA FORMAT</th>
           <th>RESPONSE BODY DATA FORMAT</th>
         </tr>
 
         <tr>
-          <td>1. Return a list of all movies to the user</td>
-          <td>"/movies"</td>
-          <td>none</td>
+          <td>1.Return a list of all movies to the user</td>
+          <td>/movies</td>
           <td>GET</td>
           <td>None</td>
           <td>
             A JSON object holding data about all the movies.
-<br />
-            Example:
+<br />      Example:
               Title: "A Clockwork Orange"
               Description: "In the future, a sadistic gang...etc."
               Genre: {
@@ -52,16 +49,15 @@
                 Name: "Stanley Kubrick"
                 Birth: "1928"
                 Death: "1999"
-              }
+              } <br />
 <br />
 <br />
           </td>
         </tr>
 
         <tr>
-          <td>2. Return data about a single movie by title to the user</td>
-          <td>"/movies/:title"</td>
-          <td>:title</td>
+          <td>2.Return all data (description, genre, director, image URL, whether it's featured or not) about a single movie by title to the user</td>
+          <td>/movies/:title</td>
           <td>GET</td>
           <td>None</td>
           <td>
@@ -84,9 +80,8 @@
         </tr>
 
         <tr>
-          <td>3. Return data about a genre by name/title</td>
-          <td>"/movies/genre/:genreName"</td>
-          <td>:name</td>
+          <td>3.Return data about a genre (description) by Name</td>
+          <td>/movies/genre/:Name</td>
           <td>GET</td>
           <td>None</td>
           <td>
@@ -101,9 +96,8 @@
         </tr>
 
         <tr>
-          <td>4. Return data about a director by name</td>
-          <td>"/movies/:directors/:directorName"</td>
-          <td>:name</td>
+          <td>4.Return data about a director (bio, birth, year, death year) by Name</td>
+          <td>/movies/director/:Name"</td>
           <td>GET</td>
           <td>None</td>
           <td>
@@ -118,19 +112,18 @@
         </tr>
 
         <tr>
-          <td>5. Allow new user to register</td>
-          <td>"/users"</td>
-          <td>none</td>
+          <td>5.Allow new users to register (Username, Password and Email are required fields)</td>
+          <td>/users</td>
           <td>POST</td>
           <td>
 <br />
             A JSON object holding data about the new user infos to add. <br>
             Example:
 <br />
-              Name: "Raspberry"
-              Email: "raspberry@gmail.com"
-              Password: "iamnotastrawberry"
-              Birthday: "1994-07-23"
+              Username: "Potato"
+              Email: "potato@gmail.com"
+              Password: "iamnotabeetroot"
+              Birthday: "2001-06-21"
               FavoriteMovies: {
                 "A Clockwork Orange"
                 "Dancer in the Dark"
@@ -156,37 +149,26 @@
         </tr>
 
         <tr>
-          <td>6. Allow users to update their infos</td>
-          <td>"/users/:id"</td>
-          <td>:username</td>
+          <td>6.Allow users to update their user infos (user is found by username)</td>
+          <td>/users/:Username"</td>
           <td>PUT</td>
           <td>
             A JSON object holding data about the new username to add. <br>
             Example: {
-              Name: "Potato"
-              Email: "potato@gmail.com"
-              Password: "iamnotabeetroot"
-              Birthday: "2001-06-21"
-              FavoriteMovies: "Melancholia"
+              Password: "iamnotastrawberry"
             }
           </td>
           <td>
             A JSON object holding updated data about the user. <br>
             Example: {
-              _id: "62228b13dec0e2bdfd000ff4",
-              Name: "Potato"
-              Email: "potato@gmail.com"
-              Password: "iamnotabeetroot"
-              Birthday: "2001-06-21"
-              FavoriteMovies: "Melancholia"
+              Password: "iamnotablueberry"
             }
           </td>
         </tr>
 
         <tr>
-          <td>7. Allow users to add a movie to their list of favorites (showing only a text that a movie has been added)</td>
-          <td>"/users/:id/movies/:movieTitle"</td>
-          <td>:id, :movieTitle</td>
+          <td>7. Allow users to add a movie to their list of favorite movies</td>
+          <td>"/users/:Username/movies/:MovieID"</td>
           <td>PATCH</td>
           <td>None</td>
           <td>
@@ -198,8 +180,7 @@
 
         <tr>
           <td>8. Allow users to remove a movie from their list of favorites (showing only a text that a movie has been removed)</td>
-          <td>"/users/:id/movies/:movieTitle"</td>
-          <td>:id, :movieTitle</td>
+          <td>"/users/:Username/movies/:MovieID"</td>
           <td>DELETE</td>
           <td>None</td>
           <td>
@@ -211,8 +192,7 @@
 
         <tr>
           <td>9. Allow existing users to deregister (showing only a text that a user email has been removed)</td>
-          <td>"/users/:id"</td>
-          <td>:username</td>
+          <td>"/users/:Username"</td>
           <td>DELETE</td>
           <td>None</td>
           <td>
