@@ -1,13 +1,25 @@
-bodyParser = require("body-parser"),
-uuid = require("uuid");
+// Load express framework
+const express = require("express");
+const app = express();
+// Import middleware libraries: Morgan, body-parser, and uuid
+const morgan = require("morgan"),
+  bodyParser = require("body-parser"),
+  uuid = require("uuid");
 
+//Use body-parser middleware function
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// //Link auth file
+// let auth = require("./auth")(app);
+// const passport = require("passport");
+// require("./passport");
+
+// Import Mongoose, models.js and respective models
 const mongoose = require("mongoose");
-  Models = require("./models.js");
-  Movies = Models.Movie;
-  Users = Models.User;
+Models = require("./models.js");
+Movies = Models.Movie;
+Users = Models.User;
 
 mongoose.connect("mongodb://localhost:27017/myFlixDB", {
   useNewUrlParser: true,
@@ -167,18 +179,30 @@ app.delete("/users/:Username/movies/:movieID", (req, res) => {
 
 //9. DELETE: Allow users to de-register
 app.delete("/users/:Username", (req, res) => {
-  Users.findOneAndRemove({ Username : req.params.Username}) // Find user by username
-    .then((user) => {
-      if(user){ // If user was found, return success message, else return error
-        res.status(200).send('User with the Username ' + req.params.Username + ' was sucessfully deleted.');
+  Users.findOneAndRemove({ Username: req.params.Username }) // Find user by username
+    .then(user => {
+      if (user) {
+        // If user was found, return success message, else return error
+        res
+          .status(200)
+          .send(
+            "User with the Username " +
+              req.params.Username +
+              " was sucessfully deleted."
+          );
       } else {
-        res.status(400).send('User with the Username ' + req.params.Username + ' was not found.');
-      };
+        res
+          .status(400)
+          .send(
+            "User with the Username " + req.params.Username + " was not found."
+          );
+      }
     })
-    .catch((err) => {
+    .catch(err => {
       console.error(err);
-      res.status(500).send('Error: ' + err);
+      res.status(500).send("Error: " + err);
     });
+});
 
 // ERROR-HANDLING MIDDLEWARE FUNCTION
 app.use((err, req, res, next) => {
@@ -189,5 +213,5 @@ app.use((err, req, res, next) => {
 //LISTEN TO PORT 8000
 const port = 8080;
 app.listen(port, () => {
-  console.log('Your App is listening on port' + port);
+  console.log("Your App is listening on port" + port);
 });
