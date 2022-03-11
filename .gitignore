@@ -5,4 +5,7 @@ test.js
 log.txt
 node_modules/
 
+movieCollection.json
+userCollection.json
+
 git rm -r --cached .idea/

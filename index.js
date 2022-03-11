@@ -18,8 +18,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Import Mongoose, models.js and respective models
 const mongoose = require("mongoose");
 Models = require("./models.js");
-Movies = Models.Movie;
-Users = Models.User;
+
+const Movies = Models.Movie;
+const Users = Models.User;
 
 mongoose.connect("mongodb://localhost:27017/myFlixDB", {
   useNewUrlParser: true,
@@ -149,7 +150,7 @@ app.put("/users/:Username", (req, res) => {
 app.patch("/users/:Username/movies/:MovieID", (req, res) => {
   Users.findOneAndUpdate(
     { Username: req.params.Username }, // Find user by username
-    { $push: { FavoriteMovies: req.params.MovieID } }, // Add movie to the list
+    { $push: { FavoriteMovies: ObjectId(req.params.MovieID) } }, // Add movie to the list
     { new: true }
   ) // Return the updated document
     .then(updatedUser => {
@@ -162,10 +163,10 @@ app.patch("/users/:Username/movies/:MovieID", (req, res) => {
 });
 
 //8. DELETE: Allow users to remove a movie from their list of favorites
-app.delete("/users/:Username/movies/:movieID", (req, res) => {
+app.delete("/users/:Username/movies/:MovieID", (req, res) => {
   Users.findOneAndUpdate(
     { Username: req.params.Username }, // Find user by username
-    { $pull: { FavoriteMovies: req.params.MovieID } }, // Remove movie from the list
+    { $pull: { FavoriteMovies: ObjectId(req.params.MovieID) } }, // Remove movie from the list
     { new: true }
   ) // Return the updated document
     .then(updatedUser => {
@@ -177,7 +178,7 @@ app.delete("/users/:Username/movies/:movieID", (req, res) => {
     });
 });
 
-//9. DELETE: Allow users to de-register
+//9. DELETE: Allow user to remove a user from list of users
 app.delete("/users/:Username", (req, res) => {
   Users.findOneAndRemove({ Username: req.params.Username }) // Find user by username
     .then(user => {
