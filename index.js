@@ -18,9 +18,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Import Mongoose, models.js and respective models
 const mongoose = require("mongoose");
 Models = require("./models.js");
-
-const Movies = Models.Movie;
-const Users = Models.User;
+Movies = Models.Movie;
+Users = Models.User;
 
 mongoose.connect("mongodb://localhost:27017/myFlixDB", {
   useNewUrlParser: true,
@@ -150,11 +149,16 @@ app.put("/users/:Username", (req, res) => {
 app.patch("/users/:Username/movies/:MovieID", (req, res) => {
   Users.findOneAndUpdate(
     { Username: req.params.Username }, // Find user by username
-    { $push: { FavoriteMovies: ObjectId(req.params.MovieID) } }, // Add movie to the list
+    { $push: { FavoriteMovies: req.params.MovieID } }, // Add movie to the list
     { new: true }
   ) // Return the updated document
-    .then(updatedUser => {
-      res.json(updatedUser); // Return json object of updatedUser
+    .then(user => {
+      if (user) {
+        // If user was found, return success message, else return error
+        res.status(200).send(req.params.MovieID + " was sucessfully added.");
+      } else {
+        res.status(400).send(req.params.MovieID + " was not found.");
+      }
     })
     .catch(err => {
       console.error(err);
@@ -166,11 +170,16 @@ app.patch("/users/:Username/movies/:MovieID", (req, res) => {
 app.delete("/users/:Username/movies/:MovieID", (req, res) => {
   Users.findOneAndUpdate(
     { Username: req.params.Username }, // Find user by username
-    { $pull: { FavoriteMovies: ObjectId(req.params.MovieID) } }, // Remove movie from the list
+    { $pull: { FavoriteMovies: req.params.MovieID } }, // Remove movie from the list
     { new: true }
   ) // Return the updated document
-    .then(updatedUser => {
-      res.json(updatedUser); // Return json object of updatedUser
+    .then(user => {
+      if (user) {
+        // If user was found, return success message, else return error
+        res.status(200).send(req.params.MovieID + " was sucessfully deleted.");
+      } else {
+        res.status(400).send(req.params.MovieID + " was not found.");
+      }
     })
     .catch(err => {
       console.error(err);
