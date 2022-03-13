@@ -32,7 +32,7 @@
         </tr>
 
         <tr>
-          <td>1.Return a list of all movies to the user</td>
+          <td>Return a list of all movies to the user</td>
           <td>/movies</td>
           <td>GET</td>
           <td>None</td>
@@ -56,7 +56,7 @@
         </tr>
 
         <tr>
-          <td>2.Return all data (description, genre, director, image URL, whether it's featured or not) about a single movie by title to the user</td>
+          <td>Return all data (description, genre, director, image URL, whether it's featured or not) about a single movie by title to the user</td>
           <td>/movies/:title</td>
           <td>GET</td>
           <td>None</td>
@@ -80,7 +80,7 @@
         </tr>
 
         <tr>
-          <td>3.Return data about a genre (description) by Name</td>
+          <td>Return data about a genre (description) by Name</td>
           <td>/movies/genre/:Name</td>
           <td>GET</td>
           <td>None</td>
@@ -96,7 +96,7 @@
         </tr>
 
         <tr>
-          <td>4.Return data about a director (bio, birth, year, death year) by Name</td>
+          <td>Return data about a director (bio, birth, year, death year) by Name</td>
           <td>/movies/director/:Name"</td>
           <td>GET</td>
           <td>None</td>
@@ -112,7 +112,7 @@
         </tr>
 
         <tr>
-          <td>5.Allow new users to register (Username, Password and Email are required fields)</td>
+          <td>Allow new users to register (Username, Password and Email are required fields)</td>
           <td>/users</td>
           <td>POST</td>
           <td>
@@ -142,7 +142,7 @@
         </tr>
 
         <tr>
-          <td>6.Allow users to update their user infos (user is found by username)</td>
+          <td>Allow users to update their user infos (user is found by username)</td>
           <td>/users/:Username"</td>
           <td>PUT</td>
           <td>
@@ -170,7 +170,7 @@
         </tr>
 
         <tr>
-          <td>7. Allow users to add a movie to their list of favorite movies</td>
+          <td>Allow users to add a movie to their list of favorite movies</td>
           <td>"/users/:Username/movies/:MovieID"</td>
           <td>PATCH</td>
           <td>None</td>
@@ -182,7 +182,7 @@
         </tr>
 
         <tr>
-          <td>8. Allow users to remove a movie from their list of favorites (showing only a text that a movie has been removed)</td>
+          <td>Allow users to remove a movie from their list of favorites (showing only a text that a movie has been removed)</td>
           <td>"/users/:Username/movies/:MovieID"</td>
           <td>DELETE</td>
           <td>None</td>
@@ -194,7 +194,7 @@
         </tr>
 
         <tr>
-          <td>9. Allow existing users to deregister (showing only a text that a user email has been removed)</td>
+          <td>Allow existing users to deregister (showing only a text that a user email has been removed)</td>
           <td>"/users/:Username"</td>
           <td>DELETE</td>
           <td>None</td>
@@ -204,6 +204,39 @@
             Example: "Raspberry has been removed from the list of users"
           </td>
         </tr>
+
+        <tr>
+          <td>Allow users to login with username and password</td>
+          <td>"/login/?Username=:username&Password=:password"</td>
+          <td>POST</TD>
+          <td>
+            Params keys and values holding username and password.
+<br />
+            Example:
+              Key: Username,
+              Value: "Username",
+
+              Key: Password,
+              Value: "Password"
+          </td>
+          <td>A JSON Object holding datas about the loggued in user.
+<br />
+            Example:
+            {
+              "user": {
+                  "_id": "622d352f40e9ea18cc3ac63e",
+                  "Username": "Apple",
+                  "Password": "iamnotapear",
+                  "Email": "apple@gmail.com",
+                  "Birthday": "2012-01-20T00:00:00.000Z",
+                  "FavoriteMovies": [],
+                  "__v": 0
+              },
+              "token": "token"
+            }
+          </td> -->
+        </tr>
+
     </main>
 
     <footer></footer>

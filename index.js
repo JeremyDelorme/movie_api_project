@@ -22,11 +22,6 @@ let allowedOrigins = ["http://localhost:8080", "http://testsite.com"];
 //   }
 // }));
 
-//Link auth file
-let auth = require("./auth")(app);
-const passport = require("passport");
-require("./passport");
-
 mongoose.connect("mongodb://localhost:27017/myFlixDB", {
   useNewUrlParser: true,
   useUnifiedTopology: true
@@ -45,9 +40,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //   useUnifiedTopology: true
 // });
 
+//Link auth file
+let auth = require("./auth")(app);
+const passport = require("passport");
+require("./passport");
+
 app.use(morgan("common"));
 
-//1. READ: Return a list of all movies to the user
+//READ: Return a list of all movies to the user
 app.get(
   "/movies",
   passport.authenticate("jwt", { session: false }),
@@ -62,7 +62,7 @@ app.get(
   }
 );
 
-//2. READ: Return all data (description, genre, director, image URL, whether it's featured or not) about a single movie by title to the user
+//READ: Return all data (description, genre, director, image URL, whether it's featured or not) about a single movie by title to the user
 app.get(
   "/movies/:title",
   passport.authenticate("jwt", { session: false }),
@@ -82,7 +82,7 @@ app.get(
   }
 );
 
-//3. READ: Return data about a genre (description) by Name
+//READ: Return data about a genre (description) by Name
 app.get(
   "/movies/genre/:Name",
   passport.authenticate("jwt", { session: false }),
@@ -102,7 +102,7 @@ app.get(
   }
 );
 
-//4. READ: Return data about a director (bio, birth, year, death year) by Name
+//READ: Return data about a director (bio, birth, year, death year) by Name
 app.get(
   "/movies/directors/:Name",
   passport.authenticate("jwt", { session: false }),
@@ -122,7 +122,7 @@ app.get(
   }
 );
 
-//5. CREATE: Allow new users to register (Username, Password and Email are required fields)
+//CREATE: Allow new users to register (Username, Password and Email are required fields)
 app.post("/users", (req, res) => {
   Users.findOne({ Username: req.body.Username })
     .then(user => {
@@ -156,7 +156,7 @@ app.post("/users", (req, res) => {
     });
 });
 
-//6. UPDATE: Allow users to update their user infos (user is found by username)
+//UPDATE: Allow users to update their user infos (user is found by username)
 app.put(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
@@ -184,7 +184,7 @@ app.put(
   }
 );
 
-//7. UPDATE: Allow users to add a movie to their list of favorite movies
+//UPDATE: Allow users to add a movie to their list of favorite movies
 app.patch(
   "/users/:Username/movies/:MovieID",
   passport.authenticate("jwt", { session: false }),
@@ -209,7 +209,7 @@ app.patch(
   }
 );
 
-//8. DELETE: Allow users to remove a movie from their list of favorites
+//DELETE: Allow users to remove a movie from their list of favorites
 app.delete(
   "/users/:Username/movies/:MovieID",
   passport.authenticate("jwt", { session: false }),
@@ -236,7 +236,7 @@ app.delete(
   }
 );
 
-//9. DELETE: Allow user to remove a user from list of users
+//DELETE: Allow user to remove a user from list of users
 app.delete(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
@@ -269,21 +269,21 @@ app.delete(
   }
 );
 
-//10. READ: Return a list of all users
-app.get(
-  "/users",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    Users.find()
-      .then(users => {
-        res.status(200).json(users);
-      })
-      .catch(err => {
-        console.error(err);
-        res.status(500).send("Error: " + err);
-      });
-  }
-);
+// //READ: Return a list of all users
+// app.get(
+//   "/users",
+//   passport.authenticate("jwt", { session: false }),
+//   (req, res) => {
+//     Users.find()
+//       .then(users => {
+//         res.status(200).json(users);
+//       })
+//       .catch(err => {
+//         console.error(err);
+//         res.status(500).send("Error: " + err);
+//       });
+//   }
+// );
 
 // ERROR-HANDLING MIDDLEWARE FUNCTION
 app.use((err, req, res, next) => {
