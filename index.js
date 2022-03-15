@@ -32,6 +32,11 @@ mongoose.connect("mongodb://localhost:27017/myFlixDB", {
   useUnifiedTopology: true
 });
 
+mongoose.connect(process.env.CONNECTION_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+
 // Import middleware libraries: Morgan, body-parser, and uuid
 const morgan = require("morgan"),
   bodyParser = require("body-parser"),
