@@ -176,7 +176,7 @@ app.post(
           // If the username is unique, create a new user with the given parameters from the request body
           Users.create({
             Username: req.body.Username,
-            Password: req.body.Password,
+            Password: hashedPassword,
             Email: req.body.Email,
             Birthday: req.body.Birthday
           })
