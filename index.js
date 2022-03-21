@@ -71,6 +71,10 @@ app.get(
   }
 );
 
+app.get("/", (req, res) => {
+  res.send("Welcome to myFlix! Your World of Movie Awaits!");
+});
+
 //READ: Return all data (description, genre, director, image URL, whether it's featured or not) about a single movie by title to the user
 app.get(
   "/movies/:title",
