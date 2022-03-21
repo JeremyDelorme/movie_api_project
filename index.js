@@ -27,10 +27,10 @@ app.use(
   })
 );
 
-mongoose.connect("mongodb://localhost:27017/myFlixDB", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
+// mongoose.connect("mongodb://localhost:27017/myFlixDB", {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true
+// });
 
 mongoose.connect(process.env.CONNECTION_URI, {
   useNewUrlParser: true,
@@ -48,10 +48,6 @@ const { check, validationResult } = require("express-validator");
 //Use body-parser middleware function
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-// mongoose.connect(process.env.CONNECTION_URI, {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true
-// });
 
 //Link auth file
 let auth = require("./auth")(app);
