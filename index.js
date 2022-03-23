@@ -27,11 +27,6 @@ app.use(
   })
 );
 
-// mongoose.connect("mongodb://localhost:27017/myFlixDB", {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true
-// });
-
 mongoose.connect(process.env.CONNECTION_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
@@ -58,9 +53,7 @@ app.use(morgan("common"));
 
 //READ: Return a list of all movies to the user
 app.get(
-  "/movies",
-  // passport.authenticate("jwt", { session: false }),
-  (req, res) => {
+  "/movies", function (req, res) {
     Movies.find()
       .then(movies => {
         res.status(200).json(movies);
