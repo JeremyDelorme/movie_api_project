@@ -59,7 +59,7 @@ app.use(morgan("common"));
 //READ: Return a list of all movies to the user
 app.get(
   "/movies",
-  passport.authenticate("jwt", { session: false }),
+  // passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Movies.find()
       .then(movies => {
@@ -289,16 +289,16 @@ app.delete(
             .status(200)
             .send(
               "User with the Username " +
-                req.params.Username +
-                " was sucessfully deleted."
+              req.params.Username +
+              " was sucessfully deleted."
             );
         } else {
           res
             .status(400)
             .send(
               "User with the Username " +
-                req.params.Username +
-                " was not found."
+              req.params.Username +
+              " was not found."
             );
         }
       })
