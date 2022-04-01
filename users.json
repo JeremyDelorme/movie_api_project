@@ -1,3 +1,0 @@
-{"_id":{"$oid":"622cb1e2ef51b5ecfb39d4f0"},"Username":"Potato","Password":"iamnotabeetroot","Email":"potato@gmail.com","Birthday":{"$date":"2001-06-21T00:00:00Z"},"FavoriteMovies":[],"__v":0}
-{"_id":{"$oid":"622d17b640e9ea18cc3ac635"},"Username":"Banana","Password":"iamnotaplatano","Email":"banana@gmail.com","Birthday":{"$date":"2010-06-10T00:00:00Z"},"FavoriteMovies":[],"__v":0}
-{"_id":{"$oid":"622d352f40e9ea18cc3ac63e"},"Username":"Apple","Password":"iamnotapear","Email":"apple@gmail.com","Birthday":{"$date":"2012-01-20T00:00:00Z"},"FavoriteMovies":[],"__v":0}

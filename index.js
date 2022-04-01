@@ -9,7 +9,11 @@ Movies = Models.Movie;
 Users = Models.User;
 
 const cors = require("cors");
-let allowedOrigins = ["http://localhost:8080", "http://testsite.com", "http://localhost:1234"];
+let allowedOrigins = [
+  "http://localhost:8080",
+  "http://testsite.com",
+  "http://localhost:1234"
+];
 
 app.use(
   cors({
@@ -52,17 +56,18 @@ require("./passport");
 app.use(morgan("common"));
 
 //READ: Return a list of all movies to the user
-app.get(
-  "/movies", function (req, res) {
-    Movies.find()
-      .then(movies => {
-        res.status(200).json(movies);
-      })
-      .catch(err => {
-        res.status(500).send("Error: " + err);
-      });
-  }
-);
+app.get("/movies", passport.authenticate("jwt", { session: false }), function(
+  req,
+  res
+) {
+  Movies.find()
+    .then(movies => {
+      res.status(200).json(movies);
+    })
+    .catch(err => {
+      res.status(500).send("Error: " + err);
+    });
+});
 
 app.get("/", (req, res) => {
   res.send("Welcome to myFlix! Your World of Movie Awaits!");
@@ -282,16 +287,16 @@ app.delete(
             .status(200)
             .send(
               "User with the Username " +
-              req.params.Username +
-              " was sucessfully deleted."
+                req.params.Username +
+                " was sucessfully deleted."
             );
         } else {
           res
             .status(400)
             .send(
               "User with the Username " +
-              req.params.Username +
-              " was not found."
+                req.params.Username +
+                " was not found."
             );
         }
       })
