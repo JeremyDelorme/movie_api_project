@@ -1,7 +1,3 @@
-//Use body-parser middleware function
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
 // Load express framework
 const express = require("express");
 const app = express();
@@ -24,6 +20,9 @@ const morgan = require("morgan"),
   bodyParser = require("body-parser"),
   uuid = require("uuid");
 
+//Import express-validator
+const { check, validationResult } = require("express-validator");
+
 app.use(
   cors({
     origin: (origin, callback) => {
@@ -45,8 +44,9 @@ mongoose.connect(process.env.CONNECTION_URI, {
   useUnifiedTopology: true
 });
 
-//Import express-validator
-const { check, validationResult } = require("express-validator");
+//Use body-parser middleware function
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 //Link auth file
 let auth = require("./auth")(app);
