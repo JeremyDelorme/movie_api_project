@@ -55,27 +55,30 @@ require("./passport");
 
 app.use(morgan("common"));
 
-//READ: Return a list of all movies to the user
-app.get("/movies", passport.authenticate("jwt", { session: false }), function(
-  req,
-  res
-) {
-  Movies.find()
-    .then(movies => {
-      res.status(200).json(movies);
-    })
-    .catch(err => {
-      res.status(500).send("Error: " + err);
-    });
+//READ: Get request
+app.get("/", passport.authenticate("jwt", { session: false }), (req, res) => {
+  res.send("Welcome to my myFlix App!");
 });
 
-app.get("/", (req, res) => {
-  res.send("Welcome to myFlix! Your World of Movie Awaits!");
-});
+//READ: Return a list of all movies to the user
+app.get(
+  "/movies",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Movies.find()
+      .then(movie => {
+        res.json(movie);
+      })
+      .catch(err => {
+        console.error(err);
+        res.status(500).send("Error: " + err);
+      });
+  }
+);
 
 //READ: Return all data (description, genre, director, image URL, whether it's featured or not) about a single movie by title to the user
 app.get(
-  "/movies/:title",
+  "/movies/:Title",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Movies.findOne({ Title: req.params.title }) // Find the movie by title
@@ -136,11 +139,6 @@ app.get(
 //CREATE: Allow new users to register (Username, Password and Email are required fields)
 app.post(
   "/users",
-  // Validation logic here for request
-  //you can either use a chain of methods like .not().isEmpty()
-  //which means "opposite of isEmpty" in plain english "is not empty"
-  //or use .isLength({min: 5}) which means
-  //minimum value of 5 characters are only allowed
   [
     check("Username", "Username is required").isLength({ min: 5 }),
     check(
