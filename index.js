@@ -220,8 +220,8 @@ app.put(
   }
 );
 
-//POST: Allow users to login
-app.post("");
+// //POST: Allow users to login
+// app.post("");
 //UPDATE: Allow users to add a movie to their list of favorite movies
 app.patch(
   "/users/:Username/movies/:MovieID",
@@ -307,21 +307,21 @@ app.delete(
   }
 );
 
-// //READ: Return a list of all users
-// app.get(
-//   "/users",
-//   passport.authenticate("jwt", { session: false }),
-//   (req, res) => {
-//     Users.find()
-//       .then(users => {
-//         res.status(200).json(users);
-//       })
-//       .catch(err => {
-//         console.error(err);
-//         res.status(500).send("Error: " + err);
-//       });
-//   }
-// );
+//READ: Return a list of all users
+app.get(
+  "/users",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Users.find()
+      .then(users => {
+        res.status(200).json(users);
+      })
+      .catch(err => {
+        console.error(err);
+        res.status(500).send("Error: " + err);
+      });
+  }
+);
 
 // ERROR-HANDLING MIDDLEWARE FUNCTION
 app.use((err, req, res, next) => {
