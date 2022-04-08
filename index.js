@@ -136,6 +136,31 @@ app.get(
   }
 );
 
+// READ: Return data on a single user by username
+app.get(
+  "/users/:Username",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Users.findOne({ Username: req.params.Username })
+      .then(user => {
+        if (user) {
+          // If a user with the corresponding username was found, return user info
+          res.status(200).json(user);
+        } else {
+          res
+            .status(400)
+            .send(
+              "User with the username " + req.params.Username + " was not found"
+            );
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        res.status(500).send("Error: " + err);
+      });
+  }
+);
+
 //CREATE: Allow new users to register (Username, Password and Email are required fields)
 app.post(
   "/users",
