@@ -1,14 +1,20 @@
-// Load express framework
+/**
+ * Imports express, a node.js framework with middlware module packages
+ */
 const express = require("express");
 const app = express();
 
-// Import Mongoose, models.js and respective models
+/**
+ * Imports mongoose to be integrated with the REST API
+ * This allows the REST API to perform CRUD operations on MongoDB
+ */
 const mongoose = require("mongoose");
+/** Imports mongoose models defined in models.js */
 Models = require("./models.js");
 Movies = Models.Movie;
 Users = Models.User;
 
-const cors = require("cors");
+/** Defines which domains/origins can access the API */
 let allowedOrigins = [
   "http://localhost:8080",
   "http://testsite.com",
@@ -17,20 +23,21 @@ let allowedOrigins = [
   "https://movie-api-jeremydelorme.herokuapp.com/"
 ];
 
-// Import middleware libraries: Morgan, body-parser, and uuid
+/** Imports middleware libraries: Morgan, body-parser, and uuid
 const morgan = require("morgan"),
   bodyParser = require("body-parser"),
   uuid = require("uuid");
 
-//Import express-validator
+/** Imports express-validator used for server-side input validation */
 const { check, validationResult } = require("express-validator");
 
+/** Integrates middleware CORS for cross-origin resource sharing */
+const cors = require("cors");
 app.use(
   cors({
     origin: (origin, callback) => {
       if (!origin) return callback(null, true);
       if (allowedOrigins.indexOf(origin) === -1) {
-        // If a specific origin isn’t found on the list of allowed origins
         let message =
           "The CORS policy for this application doesn’t allow access from origin " +
           origin;
@@ -41,24 +48,28 @@ app.use(
   })
 );
 
+/** Allows Mongoose to connect to the myFlixDB database and perform CRUD operations */
 mongoose.connect(process.env.CONNECTION_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
 
-//Use body-parser middleware function
+/** Calls body-parser middleware function */
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-//Link auth file
+/** Integrates auth.js file to authenticate and authorize using HTTP and JWSToken */
 let auth = require("./auth")(app);
 const passport = require("passport");
 require("./passport");
 
 app.use(morgan("common"));
 
-//READ: Get request
-app.get("/", passport.authenticate("jwt", { session: false }), (req, res) => {
+/* ******* START OF ENDPOINT DEFINITION ******* 
+************************************************
+*/
+
+app.get("/", (req, res) => {
   res.send("Welcome to my myFlix App!");
 });
 
@@ -70,7 +81,6 @@ app.get("/", passport.authenticate("jwt", { session: false }), (req, res) => {
  */
 app.get(
   "/movies",
-  passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Movies.find()
       .then(movie => {
@@ -86,7 +96,7 @@ app.get(
 /**
  * GET: Returns data (description, genre, director, image URL, whether it’s featured or not) about a single movie by title to the user
  * Request body: Bearer token
- * @param movieId
+ * @param Title
  * @returns movie object
  * @requires passport
  */
@@ -371,16 +381,16 @@ app.delete(
             .status(200)
             .send(
               "User with the Username " +
-                req.params.Username +
-                " was sucessfully deleted."
+              req.params.Username +
+              " was sucessfully deleted."
             );
         } else {
           res
             .status(400)
             .send(
               "User with the Username " +
-                req.params.Username +
-                " was not found."
+              req.params.Username +
+              " was not found."
             );
         }
       })
