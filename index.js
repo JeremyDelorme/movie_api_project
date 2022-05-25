@@ -23,7 +23,7 @@ let allowedOrigins = [
   "https://movie-api-jeremydelorme.herokuapp.com/"
 ];
 
-/** Imports middleware libraries: Morgan, body-parser, and uuid
+/** Imports middleware libraries: Morgan, body-parser, and uuid */
 const morgan = require("morgan"),
   bodyParser = require("body-parser"),
   uuid = require("uuid");
