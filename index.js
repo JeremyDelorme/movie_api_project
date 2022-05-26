@@ -297,7 +297,7 @@ app.put(
 );
 
 /**
- * POST: Allows users to add a movie to their list of favorites
+ * PATCH: Allows users to add a movie to their list of favorites
  * Request body: Bearer token
  * @param username
  * @param movieId
@@ -306,7 +306,6 @@ app.put(
  */
 app.patch(
   "/users/:Username/movies/:MovieID",
-  passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Users.findOneAndUpdate(
       { Username: req.params.Username }, // Find user by username
