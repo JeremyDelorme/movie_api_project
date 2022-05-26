@@ -1,18 +1,39 @@
-/**
- * Imports express, a node.js framework with middlware module packages
- */
 const express = require("express");
 const app = express();
-
-/**
- * Imports mongoose to be integrated with the REST API
- * This allows the REST API to perform CRUD operations on MongoDB
- */
 const mongoose = require("mongoose");
+const morgan = require("morgan");
+const bodyParser = require("body-parser");
+const uuid = require("uuid");
+const { check, validationResult } = require("express-validator");
+const cors = require("cors");
+
 /** Imports mongoose models defined in models.js */
 Models = require("./models.js");
 Movies = Models.Movie;
 Users = Models.User;
+
+
+app.use(cors());
+
+/** Allows Mongoose to connect to the myFlixDB database and perform CRUD operations */
+mongoose.connect(process.env.CONNECTION_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use(morgan("common"));
+
+app.use(cors());
+
+// app.use(cors({
+//   origin: '*'
+// }));
 
 /** Defines which domains/origins can access the API */
 let allowedOrigins = [
@@ -23,57 +44,36 @@ let allowedOrigins = [
   "https://movie-api-jeremydelorme.herokuapp.com/"
 ];
 
-/** Imports middleware libraries: Morgan, body-parser, and uuid */
-const morgan = require("morgan"),
-  bodyParser = require("body-parser"),
-  uuid = require("uuid");
-
-/** Imports express-validator used for server-side input validation */
-const { check, validationResult } = require("express-validator");
-
-/** Integrates middleware CORS for cross-origin resource sharing */
-
-/* ******* UNCOMMENT TO SET CORS POLICY!! *******
-************************************************
-const cors = require("cors");
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      if (!origin) return callback(null, true);
-      if (allowedOrigins.indexOf(origin) === -1) {
-        let message =
-          "The CORS policy for this application doesn’t allow access from origin " +
-          origin;
-        return callback(new Error(message), false);
-      }
-      return callback(null, true);
-    }
-  })
-);
-************************************************
-******* UNCOMMENT TO SET CORS POLICY *******
-
-*/
-app.use(cors({
-  origin: '*'
-}));
-
-/** Allows Mongoose to connect to the myFlixDB database and perform CRUD operations */
-mongoose.connect(process.env.CONNECTION_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
-
-/** Calls body-parser middleware function */
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-/** Integrates auth.js file to authenticate and authorize using HTTP and JWSToken */
 let auth = require("./auth")(app);
+
 const passport = require("passport");
 require("./passport");
 
-app.use(morgan("common"));
+// /* ******* UNCOMMENT TO SET CORS POLICY!! *******
+// ************************************************
+
+// app.use(
+//   cors({
+//     origin: (origin, callback) => {
+//       if (!origin) return callback(null, true);
+//       if (allowedOrigins.indexOf(origin) === -1) {
+//         let message =
+//           "The CORS policy for this application doesn’t allow access from origin " +
+//           origin;
+//         return callback(new Error(message), false);
+//       }
+//       return callback(null, true);
+//     }
+//   })
+// );
+
+// ************************************************
+// ******* UNCOMMENT TO SET CORS POLICY *******
+
+
+/** Integrates auth.js file to authenticate and authorize using HTTP and JWSToken */
+
+
 
 /* ******* START OF ENDPOINT DEFINITION ******* 
 ************************************************
@@ -112,7 +112,7 @@ app.get(
  */
 app.get(
   "/movies/:Title",
-  passport.authenticate("jwt", { session: false }),
+  // passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Movies.findOne({ Title: req.params.title }) // Find the movie by title
       .then(movie => {
