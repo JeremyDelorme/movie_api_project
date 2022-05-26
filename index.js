@@ -32,6 +32,9 @@ const morgan = require("morgan"),
 const { check, validationResult } = require("express-validator");
 
 /** Integrates middleware CORS for cross-origin resource sharing */
+
+/* ******* UNCOMMENT TO SET CORS POLICY!! *******
+************************************************
 const cors = require("cors");
 app.use(
   cors({
@@ -47,6 +50,8 @@ app.use(
     }
   })
 );
+************************************************
+******* UNCOMMENT TO SET CORS POLICY *******
 
 /** Allows Mongoose to connect to the myFlixDB database and perform CRUD operations */
 mongoose.connect(process.env.CONNECTION_URI, {
