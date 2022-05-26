@@ -53,6 +53,11 @@ app.use(
 ************************************************
 ******* UNCOMMENT TO SET CORS POLICY *******
 
+*/
+app.use(cors({
+  origin: '*'
+}));
+
 /** Allows Mongoose to connect to the myFlixDB database and perform CRUD operations */
 mongoose.connect(process.env.CONNECTION_URI, {
   useNewUrlParser: true,
