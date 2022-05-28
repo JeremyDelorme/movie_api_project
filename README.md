@@ -2,7 +2,7 @@
 
 ## Description
 
-I developed this Movie_Api as part of my Full-Stack Web Development Course at CareerFoundry.
+I developed this Movie_Api as part of my Full-Stack Web Development Course at CareerFoundry. It is a erver-side component of a “movies” web application called myFlix. The web application will provide users with access to information about different movies, directors, and genres. Users will be able to sign up, update their personal information, and create a list of their favorite movies.
 
 ## Technologies used
 
