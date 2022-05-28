@@ -66,10 +66,12 @@ app.get("/", (req, res) => {
 });
 
 /**
- * GET: Returns a list of ALL movies to the user
- * Request body: Bearer token
- * @returns array of movie objects
- * @requires passport
+ * Get all movies
+ * @method GET
+ * @memberof module:app
+ * @see '/movies'
+ * @returns {object[]} - returns the movies array
+  * @requires authentication JWT
  */
 app.get(
   "/movies",
@@ -86,11 +88,13 @@ app.get(
 );
 
 /**
- * GET: Returns data (description, genre, director, image URL, whether it’s featured or not) about a single movie by title to the user
- * Request body: Bearer token
- * @param Title
- * @returns movie object
- * @requires passport
+ * Get movie by title
+ * @method GET
+ * @memberof module:app
+ * @see '/movies/:title'
+ * @param {string} title - Title of the movie
+ * @returns {object} - returns the movie
+  * @requires authentication JWT
  */
 app.get(
   "/movies/:Title",
