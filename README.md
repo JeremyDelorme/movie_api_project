@@ -1,18 +1,21 @@
 # Movie Api
 
-## Description
+## DESCRIPTION
 
 I developed this Movie_Api as part of my Full-Stack Web Development Course at CareerFoundry. It is a erver-side component of a “movies” web application called myFlix. The web application will provide users with access to information about different movies, directors, and genres. Users will be able to sign up, update their personal information, and create a list of their favorite movies.
 
-## Technologies used
+## TECHNOLOGIES USED
 
-This RESTful movie API combines backend (express, nodejs , mongodb) and frontend (react) and allowed me to get hands-on experience with the MERN stack. I chose this specific stack, because I had prior knowledge of JavaScript and using node.js and React would therefore be the best choice to combine backend and frontend.
+- JavaScript
+- Node.js
+- Express
+- MongoDB
  
-## What this application does
+## WHAT DOES IT DO?
  
  This API allows a users to access a database to receive information on movies dealing with the topic of climate change. Also, the user can get background information on the movies such as information about the movies' directors and genre specifications. The user can sign up, update personal information and save/delete favorite movies to/from his personal profile.
  
-## Essential Features
+## ESSENTIAL FEATURES
 
  ● Return a list of ALL movies to the user
  ● Return data (description, genre, director, image URL, whether it’s featured or not) about a
@@ -25,7 +28,7 @@ This RESTful movie API combines backend (express, nodejs , mongodb) and frontend
  ● Allow users to remove a movie from their list of favorites
  ● Allow existing users to deregister
   
-## Technical Requirements
+## TECHNICAL REQUIREMENTS
  
 - MongoDB
 - node.js
@@ -39,6 +42,12 @@ This RESTful movie API combines backend (express, nodejs , mongodb) and frontend
 - Deployment on GitHub
 - Deployment on Heroku
 
-## Documentation of Endpoints
+## DOCUMENTATION OF ENDPOINTS
 
 https:// [...]
+
+## WHAT IT LOOKS LIKE
+
+## LIVE DEMO LINK
+
+
