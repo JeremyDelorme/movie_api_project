@@ -7,7 +7,7 @@ const uuid = require("uuid");
 const { check, validationResult } = require("express-validator");
 const cors = require("cors");
 
-/** Imports mongoose models defined in models.js */
+// Imports mongoose models defined in models.js
 Models = require("./models.js");
 Movies = Models.Movie;
 Users = Models.User;
@@ -15,7 +15,7 @@ Users = Models.User;
 
 app.use(cors());
 
-/** Allows Mongoose to connect to the myFlixDB database and perform CRUD operations */
+// Allows Mongoose to connect to the myFlixDB database and perform CRUD operations
 mongoose.connect(process.env.CONNECTION_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
@@ -31,7 +31,7 @@ app.use(morgan("common"));
 
 app.use(cors());
 
-/** Defines which domains/origins can access the API */
+// Defines which domains/origins can access the API 
 let allowedOrigins = [
   "http://localhost:8080",
   "http://testsite.com",
@@ -45,9 +45,6 @@ let auth = require("./auth")(app);
 
 const passport = require("passport");
 require("./passport");
-
-// /* ******* UNCOMMENT TO SET CORS POLICY!! *******
-// ************************************************
 
 app.use(
   cors({
@@ -63,18 +60,6 @@ app.use(
     }
   })
 );
-
-// ************************************************
-// ******* UNCOMMENT TO SET CORS POLICY *******
-
-
-/** Integrates auth.js file to authenticate and authorize using HTTP and JWSToken */
-
-
-
-/* ******* START OF ENDPOINT DEFINITION ******* 
-************************************************
-*/
 
 app.get("/", (req, res) => {
   res.send("Welcome to my myFlix App!");
@@ -429,7 +414,7 @@ app.get(
 );
 
 /**
- * handles errors
+ * Handles errors
  */
 // ERROR-HANDLING MIDDLEWARE FUNCTION
 app.use((err, req, res, next) => {
@@ -438,7 +423,7 @@ app.use((err, req, res, next) => {
 });
 
 /**
- * defines port, listening to port 8000
+ * Defines port, listening to port 8000
  */
 //LISTEN TO PORT 8080 or other
 const port = process.env.PORT || 8080;
