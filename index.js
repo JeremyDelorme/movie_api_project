@@ -1,3 +1,7 @@
+/**
+ * @module app
+ */
+
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -61,12 +65,20 @@ app.use(
   })
 );
 
+/**
+ * GET: Returns welcome message for '/' request URL
+ * @method GET
+ * @memberof module:app
+ * @see '/'
+ * @returns {object} - returns a welcome message
+ */
+
 app.get("/", (req, res) => {
   res.send("Welcome to my myFlix App!");
 });
 
 /**
- * Get all movies
+ * GET: All movies
  * @method GET
  * @memberof module:app
  * @see '/movies'
@@ -88,11 +100,11 @@ app.get(
 );
 
 /**
- * Get movie by title
+ * GET movie by title
  * @method GET
  * @memberof module:app
  * @see '/movies/:title'
- * @param {string} title - Title of the movie
+ * @param {string} Title - Title of the movie
  * @returns {object} - returns the movie
   * @requires authentication JWT
  */
@@ -116,12 +128,15 @@ app.get(
 );
 
 /**
- * GET: Returns data about a genre (description) by name/title (e.g., “Fantasy”)
- * Request body: Bearer token
- * @param Name (of genre)
- * @returns genre object
- * @requires passport
+ * GET data about a genre by title
+ * @method GET
+ * @memberof module:app
+ * @see '/movies/genre/:Name'
+ * @param {string} Name (of genre)
+ * @returns {object} - returns the genre infos
+  * @requires authentication JWT
  */
+
 app.get(
   "/movies/genre/:Name",
   passport.authenticate("jwt", { session: false }),
@@ -142,12 +157,15 @@ app.get(
 );
 
 /**
- * GET: Returns data about a director (bio, birth year, death year) by name
- * Request body: Bearer token
- * @param Name (of director)
- * @returns director object
- * @requires passport
+ * GET data about a director by title
+ * @method GET
+ * @memberof module:app
+ * @see '/movies/director/:Name'
+ * @param {string} Name (of director)
+ * @returns {object} - returns the director infos
+  * @requires authentication JWT
  */
+
 app.get(
   "/movies/directors/:Name",
   passport.authenticate("jwt", { session: false }),
@@ -167,13 +185,17 @@ app.get(
   }
 );
 
+
 /**
- * GET: Returns data on a single user (user object) by username
- * Request body: Bearer token
- * @param Username
- * @returns user object
- * @requires passport
+ * GET data about a single user
+ * @method GET
+ * @memberof module:app
+ * @see '/users/:Username'
+ * @param {string} user
+ * @returns {object} - returns the Username
+  * @requires authentication JWT
  */
+
 app.get(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
@@ -199,10 +221,15 @@ app.get(
 );
 
 /**
- * POST: Allows new users to register; Username, Password & Email are required fields!
- * Request body: Bearer token, JSON with user information
- * @returns user object
+ * POST: Allows new users to register; Username, Password & Email are required fields
+ * @method POST
+ * @memberof module:app
+ * @see '/users'
+ * @param {string} Username 
+ * @returns {object} - returns the user object
+  * @requires authentication JWT
  */
+
 app.post(
   "/users",
   [
@@ -260,11 +287,14 @@ app.post(
 
 /**
  * PUT: Allow users to update their user info (find by username)
- * Request body: Bearer token, updated user info
- * @param Username
- * @returns user object with updates
- * @requires passport
+ * @method PUT
+ * @memberof module:app
+ * @see '/users/:Username'
+ * @param {string} Username 
+ * @returns {object} - returns the user object updated
+  * @requires authentication JWT
  */
+
 app.put(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
@@ -294,12 +324,14 @@ app.put(
 
 /**
  * PATCH: Allows users to add a movie to their list of favorites
- * Request body: Bearer token
- * @param username
- * @param movieId
- * @returns user object
- * @requires passport
+ * @method PATCH
+ * @memberof module:app
+ * @see '/users/:Username/movies/:MovieID'
+ * @param {string} MovieID
+ * @returns {object} - returns the list of favorite
+  * @requires authentication JWT
  */
+
 app.patch(
   "/users/:Username/movies/:MovieID",
   (req, res) => {
@@ -325,12 +357,14 @@ app.patch(
 
 /**
  * DELETE: Allows users to remove a movie from their list of favorites
- * Request body: Bearer token
- * @param Username
- * @param movieId
- * @returns user object
- * @requires passport
+ * @method DELETE
+ * @memberof module:app
+ * @see '/users/:Username/movies/:MovieID'
+ * @param {string} MovieID
+ * @returns {object} - returns the list of favorite with movie deleted
+  * @requires authentication JWT
  */
+
 app.delete(
   "/users/:Username/movies/:MovieID",
   passport.authenticate("jwt", { session: false }),
@@ -359,11 +393,14 @@ app.delete(
 
 /**
  * DELETE: Allows existing users to deregister
- * Request body: Bearer token
- * @param Username
- * @returns success message
- * @requires passport
+ * @method DELETE
+ * @memberof module:app
+ * @see '/users/:Username'
+ * @param {string} Username
+ * @returns {object} - returns success message
+  * @requires authentication JWT
  */
+
 app.delete(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
@@ -398,10 +435,14 @@ app.delete(
 
 /**
  * GET: Returns a list of ALL users
- * Request body: Bearer token
- * @returns array of user objects
- * @requires passport
+ * @method GET
+ * @memberof module:app
+ * @see '/users'
+ * @param {string} Username
+ * @returns {object} - returns array of users object
+  * @requires authentication JWT
  */
+
 app.get(
   "/users",
   passport.authenticate("jwt", { session: false }),
