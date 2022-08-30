@@ -57,9 +57,9 @@ const passport = require("passport");
 require("./passport");
 
 // Allows Mongoose to connect to the myFlixDB database and perform CRUD operations
-mongoose.connect(process.env.CONNECTION_URI, {
+mongoose.connect(process.env.CONNECTION_URI = "mongodb+srv://mycareerfoundrydb.q99wu.mongodb.net/myFirstDatabase", {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
 });
 
 // Logs basic request data in terminal using Morgan middleware library
