@@ -2,22 +2,59 @@
  * @module app
  */
 
+//LOAD Express Framework
 const express = require("express");
 const app = express();
-const mongoose = require("mongoose");
-const morgan = require("morgan");
-const bodyParser = require("body-parser");
-const uuid = require("uuid");
-const { check, validationResult } = require("express-validator");
-const cors = require("cors");
 
-// Imports mongoose models defined in models.js
+// Import middleware libraries: Morgan, body-parser, and uuid
+const morgan = require("morgan"),
+  bodyParser = require("body-parser"),
+  uuid = require("uuid");
+
+// Use body-parser middleware function
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// Import Mongoose, models.js and respective models defined in model.js
+const mongoose = require("mongoose");
 Models = require("./models.js");
 Movies = Models.Movie;
 Users = Models.User;
 
+// Import and use CORS, set allowed origins
+const cors = require("cors");
 
-app.use(cors());
+/* ******* UNCOMMENT TO SET CORS POLICY!! *******
+************************************************
+//let allowedOrigins = ['http://localhost:8000', 'http://testsite.com', 'https://herokuapp.com', 'http://localhost:1234'];
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) { // origin is not included in list of allowedOrigins
+      let message = 'The CORS policy for this application doesn\'t allow access from origin ' + origin;
+      return callback(new Error(message), false);
+    }
+    return callback(null, true);
+  }
+}));
+************************************************
+******* UNCOMMENT TO SET CORS POLICY *******
+*/
+
+// DELETE this when uncommenting CORS POLICY!!
+app.use(cors({
+  origin: '*'
+}));
+
+// Import express-validator to validate input fields
+const { check, validationResult } = require("express-validator");
+
+// Import auth.js file
+let auth = require("./auth")(app);
+
+// Require passport module & import passport.js file 
+const passport = require("passport");
+require("./passport");
 
 // Allows Mongoose to connect to the myFlixDB database and perform CRUD operations
 mongoose.connect(process.env.CONNECTION_URI, {
@@ -25,45 +62,14 @@ mongoose.connect(process.env.CONNECTION_URI, {
   useUnifiedTopology: true
 });
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// Logs basic request data in terminal using Morgan middleware library
 
 app.use(morgan("common"));
 
-app.use(cors());
-
-// Defines which domains/origins can access the API 
-let allowedOrigins = [
-  "http://localhost:8080",
-  "http://testsite.com",
-  "http://localhost:1234",
-  "http://localhost:4200",
-  "https://movie-api-jeremydelorme.herokuapp.com/",
-  "https://jeremydelorme.github.io/myFlix-Angular-app/"
-];
-
-let auth = require("./auth")(app);
-
-const passport = require("passport");
-require("./passport");
-
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      if (!origin) return callback(null, true);
-      if (allowedOrigins.indexOf(origin) === -1) {
-        let message =
-          "The CORS policy for this application doesn’t allow access from origin " +
-          origin;
-        return callback(new Error(message), false);
-      }
-      return callback(null, true);
-    }
-  })
-);
+/* ******* START OF ENDPOINT DEFINITION ******* 
+************************************************
+************************************************
+*/
 
 /**
  * GET: Returns welcome message for '/' request URL
@@ -332,28 +338,18 @@ app.put(
   * @requires authentication JWT
  */
 
-app.patch(
-  "/users/:Username/movies/:MovieID",
-  (req, res) => {
-    Users.findOneAndUpdate(
-      { Username: req.params.Username }, // Find user by username
-      { $push: { FavoriteMovies: req.params.MovieID } }, // Add movie to the list
-      { new: true }
-    ) // Return the updated document
-      .then(user => {
-        if (user) {
-          // If user was found, return success message, else return error
-          res.status(200).send(req.params.MovieID + " was sucessfully added.");
-        } else {
-          res.status(400).send(req.params.MovieID + " was not found.");
-        }
-      })
-      .catch(err => {
-        console.error(err);
-        res.status(500).send("Error: " + err);
-      });
-  }
-);
+app.patch('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { session: false }), (req, res) => {
+  Users.findOneAndUpdate({ Username: req.params.Username }, // Find user by username
+    { $push: { FavoriteMovies: req.params.MovieID } }, // Add movie to the list
+    { new: true }) // Return the updated document
+    .then((updatedUser) => {
+      res.json(updatedUser); // Return json object of updatedUser
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+});
 
 /**
  * DELETE: Allows users to remove a movie from their list of favorites
