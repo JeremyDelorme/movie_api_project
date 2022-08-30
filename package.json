@@ -16,7 +16,7 @@
   "bugs": {
     "url": "https://github.com/JeremyDelorme/movie_api_project/issues"
   },
-  "homepage": "https://github.com/JeremyDelorme/movie_api_project#readme",
+  "homepage": "https://github.com/JeremyDelorme/movie_api_project",
   "dependencies": {
     "@types/cors": "^2.8.12",
     "@types/morgan": "^1.9.3",
